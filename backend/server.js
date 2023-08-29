@@ -10,7 +10,7 @@ const contactRoutes = require("./routes/contact");
 
 mongoose.connect(process.env.URI);
 
-const allowedOrigins = ["https://mihir.onrender.com"];
+const allowedOrigins = ["http://localhost:8081", process.env.CLIENT_ORIGIN];
 const corsOptions = {
   origin: (origin, callback) => {
     if (allowedOrigins.includes(origin) || !origin) {
@@ -30,7 +30,7 @@ app.use("/", contactRoutes);
 app.use("/", userRoutes);
 app.use("/", blogRoutes);
 
-const port = process.env.PORT || 3333;
+const port = process.env.NODE_DOCKER_PORT || 8080;
 
 app.listen(port, () => {
   console.log(`Example app listening on port ${port}`);
