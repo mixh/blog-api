@@ -1,2 +1,2 @@
 export const API_URL =
-  process.env.REACT_APP_API_BASE_URL || "http://localhost:8080/";
+  "https://api-blog-cc247d28818a.herokuapp.com/" || "http://localhost:8080/";
