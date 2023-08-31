@@ -1,2 +1,1 @@
-export const API_URL =
-  "https://api-blog-cc247d28818a.herokuapp.com/" || "http://localhost:8080/";
+export const API_URL = "http://localhost:3333/api";

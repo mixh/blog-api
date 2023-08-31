@@ -10,7 +10,17 @@ const contactRoutes = require("./routes/contact");
 
 mongoose.connect(process.env.URI);
 
-const allowedOrigins = ["http://localhost:8081", process.env.CLIENT_ORIGIN];
+if (
+  process.env.NODE_ENV === "production" ||
+  process.env.NODE_ENV === "staging"
+) {
+  app.use(express.static("app/build"));
+  app.get("*", (req, res) => {
+    res.sendFile(path.join(__dirname + "/app/build/index.html"));
+  });
+}
+
+const allowedOrigins = ["http://localhost:3000", process.env.client];
 const corsOptions = {
   origin: (origin, callback) => {
     if (allowedOrigins.includes(origin) || !origin) {
@@ -26,15 +36,14 @@ app.use(cors(corsOptions));
 
 app.use(bodyParser.json());
 
-app.use("/", contactRoutes);
-app.use("/", userRoutes);
-app.use("/", blogRoutes);
+app.use("/api/", contactRoutes);
+app.use("/api/", userRoutes);
+app.use("/api/", blogRoutes);
 
-const port = process.env.NODE_DOCKER_PORT || 8080;
+const port = process.env.PORT || 3333;
 
 app.listen(port, () => {
   console.log(`Example app listening on port ${port}`);
 });
 
-// Export the Express API
 module.exports = app;

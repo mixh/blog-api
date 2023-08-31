@@ -1,10 +1,11 @@
+require("dotenv").config();
 const express = require("express");
 const router = express.Router();
 const { add, get } = require("../data/users");
 const { sign, verify } = require("jsonwebtoken");
 const { compare } = require("bcryptjs");
 
-const KEY = "STUPIDSECRET";
+const KEY = process.env.KEY;
 
 router.post("/signup", async (req, res, next) => {
   try {
